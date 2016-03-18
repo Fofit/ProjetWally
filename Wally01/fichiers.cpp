@@ -7,7 +7,7 @@
 using namespace std;
 
 //télécharge données du fichier .txt
-void loadData(vector <Point> lpoints, string fileName)
+void loadData(vector <Point> &lpoints, string fileName)
 {
 	//ouverture fichier en mode lecture
 	ifstream fichier(fileName);

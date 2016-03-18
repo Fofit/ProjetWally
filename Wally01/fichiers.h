@@ -9,6 +9,6 @@
 
 using namespace std;
 
-void loadData(vector <Point> lpoints, string fileName);
+void loadData(vector <Point> &lpoints, string fileName);
 
 #endif

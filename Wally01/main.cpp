@@ -27,7 +27,7 @@ int oldX, newX, oldY, newY;
 bool rotaetAxixX = false;
 double rotateAngle = 0.0;
 double depth;
-
+int numeroPoint = 0; 
 //variables sphère - déplacement
 double sphX = 0, sphY = 0, sphZ = 0;
 long time = 0, startTime = 0;
@@ -53,7 +53,7 @@ int main(int argc, char *argv[])
 	cout << camX << " " << camY << " " << camZ << " " << cibleX << " " << cibleY << " " << cibleZ << endl;
 
 	//liste points du circuit
-	//loadData(vPoints, "08154728.txt");
+	loadData(vPoints, "08154728.txt");
 	for (double i = 0.0; i < 50.0; i += 0.01)
 	{
 		vPoints.push_back(Point(i, 0, 5.0 * cos(i)));
@@ -74,6 +74,12 @@ int main(int argc, char *argv[])
 	glutDisplayFunc(Draw);
 	glutIdleFunc(animation);
 
+	//liste points du circuit
+	
+
+	cout << "Entrer le numéro du point dont vous souhaitez obtenir les informations: ";
+	cin >> numeroPoint;
+	cout << "Information accélération :  " << "Ax :  " << vPoints[numeroPoint].getAx() << " Ay: " << vPoints[numeroPoint].getAy() << " Az: " << vPoints[numeroPoint].getAz();
 	glutMainLoop();
 
 	return 0;
@@ -102,7 +108,7 @@ void processNormalKeys(unsigned char key, int x, int y)
 		dx = vitesseTranslation * cos(atan((cibleY - camY) / (cibleX - camX)) + PI / 2);
 		dy = vitesseTranslation * sin(atan((cibleY - camY) / (cibleX - camX)) + PI / 2);
 
-		cout << dx << " " << dy << endl;
+	//	cout << dx << " " << dy << endl;
 
 		camX -= dx;
 		cibleX -= dx;
@@ -151,7 +157,7 @@ void processNormalKeys(unsigned char key, int x, int y)
 		}
 	}
 
-	cout << camX << " " << camY << " " << camZ << " " << cibleX << " " << cibleY << " " << cibleZ << endl;
+	//cout << camX << " " << camY << " " << camZ << " " << cibleX << " " << cibleY << " " << cibleZ << endl;
 
 }
 
@@ -183,7 +189,7 @@ void processSpecialKeys(int key, int x, int y)
 		}
 
 	}
-	cout << camX << " " << camY << " " << camZ << " " << cibleX << " " << cibleY << " " << cibleZ << endl;
+	//cout << camX << " " << camY << " " << camZ << " " << cibleX << " " << cibleY << " " << cibleZ << endl;
 }
 
 void checkState(int state, int x, int y)
@@ -323,7 +329,7 @@ void Draw()
 
 	}
 
-	cout << time << ", " << startTime << ", " << pAct << endl;
+	//cout << time << ", " << startTime << ", " << pAct << endl;
 
 	glutSwapBuffers();
 }

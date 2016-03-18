@@ -1,2 +1,7 @@
-﻿  Wally01.vcxproj -> C:\Wally01f\Debug\Wally01.exe
-  Wally01.vcxproj -> C:\Wally01f\Debug\Wally01.pdb (Partial PDB)
+﻿  main.cpp
+c:\users\fitani\projetwally\wally01\main.cpp(304): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+c:\users\fitani\projetwally\wally01\main.cpp(306): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
+c:\users\fitani\projetwally\wally01\main.cpp(307): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+c:\users\fitani\projetwally\wally01\main.cpp(319): warning C4018: '>=' : incompatibilité signed/unsigned
+  Wally01.vcxproj -> C:\Users\Fitani\ProjetWally\Debug\Wally01.exe
+  Wally01.vcxproj -> C:\Users\Fitani\ProjetWally\Debug\Wally01.pdb (Partial PDB)

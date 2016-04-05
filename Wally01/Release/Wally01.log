@@ -1,0 +1,7 @@
+﻿  main.cpp
+main.cpp(427): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(429): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
+main.cpp(430): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(442): warning C4018: '>=' : incompatibilité signed/unsigned
+LINK : fatal error LNK1104: impossible d'ouvrir le fichier 'C:\Users\Fitani\ProjetWally\Release\Wally01.exe'
+C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppCommon.targets(637,5): error MSB6006: Arrêt de "link.exe" avec le code 1104.

@@ -6,11 +6,13 @@
 
 using namespace std;
 
+
 //télécharge données du fichier .txt
 void loadData(vector <Point> &lpoints, string fileName)
 {
 	//ouverture fichier en mode lecture
 	ifstream fichier(fileName);
+
 
 	int i = 0;
 	string sa = "0", sb = "0", sc = "0", sd = "0";
@@ -41,7 +43,7 @@ void loadData(vector <Point> &lpoints, string fileName)
 			ligne.erase(0, sd.size() + 1);
 
 			lpoints.push_back(Point(a, b, c, d));
-			//cout << sa << " " << sb << " " << sc << " " << sd << endl;
+			cout << sa << " " << sb << " " << sc << " " << sd << endl;
 		}
 
 	}

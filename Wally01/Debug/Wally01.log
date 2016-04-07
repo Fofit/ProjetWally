@@ -1,12 +1,12 @@
 ﻿  main.cpp
-main.cpp(411): warning C4018: '<' : incompatibilité signed/unsigned
-main.cpp(575): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
-main.cpp(577): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
-main.cpp(578): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
-main.cpp(590): warning C4018: '>=' : incompatibilité signed/unsigned
-main.cpp(605): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
-main.cpp(607): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
-main.cpp(608): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(400): warning C4018: '<' : incompatibilité signed/unsigned
+main.cpp(569): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(571): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
+main.cpp(572): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(584): warning C4018: '>=' : incompatibilité signed/unsigned
+main.cpp(600): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(602): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
+main.cpp(603): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
   main.obj : /DEBUG:FASTLINK n'est pas pris en charge en présence de code managé ; redémarrage de l'édition des liens avec /DEBUG:FULL
   Wally01.vcxproj -> C:\Users\Fitani\ProjetWally\Debug\Wally01.exe
   Wally01.vcxproj -> C:\Users\Fitani\ProjetWally\Debug\Wally01.pdb (Partial PDB)

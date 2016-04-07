@@ -3,6 +3,7 @@
 
 #include <glew.h>
 #include <glut.h>
+#include <freeglut.h>
 #include <iostream>
 #include <vector>
 #include <string>
@@ -66,7 +67,7 @@ void animation();
 bool fermer3D = false;
 //variable clic souris
 long ptProche = 0;
-
+ int compteur = 0; 
 
 bool pause = true;
 
@@ -75,6 +76,9 @@ long pPause = 0;
 
 bool init = false;
 int CTRLpress = 0;
+
+
+
 
 //méthode bizarre pour convertir un String^ en string 
 void MarshalString(String ^ s, string& os) {
@@ -99,24 +103,6 @@ int  main(int argc, char *argv[])
 
 		string stdText1;
 		
-	//liste points du circuit
-		
-	
-	
-
-	//liste points du circuit
-	//Application::EnableVisualStyles();
-	//on déclare la fenêtreMain
-
-	//afficher la fenêtre, on demande à l'application de lancé la fenêtre 
-	//le % permet de prendre une information , ici l'application prend la fenetreMain 
-	//pour la lancer.
-
-
-
-	
-	//Wally01::Form1 form;
-
 
 	/*cout << "Entrer le numéro du point dont vous souhaitez obtenir les informations: ";
 	cin >> numeroPoint;
@@ -132,11 +118,12 @@ int  main(int argc, char *argv[])
 	int Window_1 = glutCreateWindow(argv[0]);
 	glutSetWindowTitle("Projet Walibi");
 	glutSetWindowTitle("Fenêtre 2");
-	
+	 
+
 	
 	//creation fenêtre 2
 	int window_2 = glutCreateWindow(argv[1]);
-
+	
 
 
 
@@ -166,6 +153,7 @@ int  main(int argc, char *argv[])
 		vitesseRotation = Convert::ToDouble(fenetreMain.contenudomaineUpDown3) / 2000.0;
 		vitesseTranslation = Convert::ToDouble(fenetreMain.contenudomaineUpDown4)/20.0;
 		vitesseZoom = Convert::ToDouble(fenetreMain.contenudomaineUpDown5)/200;
+
 		
 		glutShowWindow();
 		glutMouseFunc(mouseEvent);
@@ -419,6 +407,7 @@ void mouseEvent(int button, int state, int x, int y)
 						distOpt = dist;
 						ptProche = i;
 					}
+					
 				}
 
 				//cout << "mouse x, y: " << x << " " << y << "; point 0: " << windX << ", " << windY << ", " << windZ << endl;
@@ -460,6 +449,10 @@ void mouseEvent(int button, int state, int x, int y)
 	
 }
 
+void afficherTexte(int x, int y, string motAAfficher) {
+	glRasterPos2i(x, y);
+	glutBitmapString(GLUT_BITMAP_HELVETICA_12, (const unsigned char*)motAAfficher.c_str());
+}
 void mouseMotion(int x, int y)
 {
 	double r = 0;//distance caméra-cible
@@ -512,7 +505,7 @@ void mouseMotion(int x, int y)
 				//cout << u << ", " << uu << endl ;
 
 				//cout << r << ", " << v << ", " << u << "; " << vv << ", " << uu << "; " << xx << ", " << yy << ", " << zz << "; " << camX << ", " << camY << ", " << camZ << endl;
-
+			
 				oldX = x;
 				oldY = y;
 			}
@@ -553,7 +546,7 @@ void Draw()
 
 	//(pos. cam), (pos. cible), (vect. vert.)
 	gluLookAt(camX, camY, camZ, cibleX, cibleY, cibleZ, 0, 0, 1);
-
+	compteur++;
 	//affichage repère 3D
 	glBegin(GL_LINES);
 	glColor3d(255, 0, 0);
@@ -601,16 +594,26 @@ void Draw()
 
 	}
 
+
 	//point clic
 
 	glTranslatef(vPoints[ptProche].getX(), vPoints[ptProche].getY(), vPoints[ptProche].getZ());
 	glColor3d(0, 255, 0);
 	glutSolidSphere(tailleSphere, tailleSphere * 20, tailleSphere * 20);
 	glTranslatef(-vPoints[ptProche].getX(), -vPoints[ptProche].getY(), -vPoints[ptProche].getZ());
+	
+	
+	
 
+	afficherTexte(50, 50, "salut Laurent Vereb et Raphael Lejeune");
 
+		
 	glutSwapBuffers();
+
+
+	
 }
+
 
 void Reshape(int x, int y)
 {
@@ -624,6 +627,9 @@ void Reshape(int x, int y)
 	glMatrixMode(GL_MODELVIEW);
 	glViewport(0, 0, x, y);  //Use the whole window for rendering
 	//cout << "Width" << fenetreX;
+
+
+	
 }
 
 
@@ -635,4 +641,5 @@ void animation()
 	}
 	Draw();
 }
+
 

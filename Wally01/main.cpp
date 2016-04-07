@@ -41,10 +41,18 @@ int windowHeight = GLUT_WINDOW_Y;
 double sphX = 0, sphY = 0, sphZ = 0;
 long time = 0, startTime = 0;
 bool go = false;//on enclenche le déplacement
-bool pause = true;
+
 
 long pAct = 0;//point actuel
-long pPause = 0;
+
+
+typedef struct coord coord;
+struct coord
+{
+	GLdouble *x;
+	GLdouble *y;
+	GLdouble *z;
+};
 
 void processSpecialKeys(int key, int x, int y);
 void processNormalKeys(unsigned char key, int x, int y);//peut-être à changer. https://www.opengl.org/discussion_boards/showthread.php/183072-Cube-using-OpenGL-and-rotating-it-using-mouse-events
@@ -56,7 +64,17 @@ void Draw();
 void Reshape(int x, int y);
 void animation();
 bool fermer3D = false;
+//variable clic souris
+long ptProche = 0;
 
+
+bool pause = true;
+
+
+long pPause = 0;
+
+bool init = false;
+int CTRLpress = 0;
 
 //méthode bizarre pour convertir un String^ en string 
 void MarshalString(String ^ s, string& os) {
@@ -110,7 +128,18 @@ int  main(int argc, char *argv[])
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(640, 480);
 	
-	int WindowName = glutCreateWindow("Projet Walibi");
+	//creation fenêtre 1 
+	int Window_1 = glutCreateWindow(argv[0]);
+	glutSetWindowTitle("Projet Walibi");
+	glutSetWindowTitle("Fenêtre 2");
+	
+	
+	//creation fenêtre 2
+	int window_2 = glutCreateWindow(argv[1]);
+
+
+
+
 	
 	cout << "Width" << fenetreX;
 	
@@ -134,10 +163,10 @@ int  main(int argc, char *argv[])
 		}
 
 		//récupérer les champs rotation,translation et zoom du menu 
-		vitesseRotation = Convert::ToDouble(fenetreMain.contenuTextbox3);
-		vitesseTranslation = Convert::ToDouble(fenetreMain.contenuTextbox4);
-		vitesseZoom = Convert::ToDouble(fenetreMain.contenuTextbox5);
-					
+		vitesseRotation = Convert::ToDouble(fenetreMain.contenudomaineUpDown3) / 2000.0;
+		vitesseTranslation = Convert::ToDouble(fenetreMain.contenudomaineUpDown4)/20.0;
+		vitesseZoom = Convert::ToDouble(fenetreMain.contenudomaineUpDown5)/200;
+		
 		glutShowWindow();
 		glutMouseFunc(mouseEvent);
 		glutSpecialFunc(processSpecialKeys);
@@ -170,29 +199,46 @@ int  main(int argc, char *argv[])
 
 void processNormalKeys(unsigned char key, int x, int y)
 {
-	double dx, dy;
+	double dx, dy, norme;
 
 	if (key == 27)
 	{
 		Application::Restart();
 		exit(0);
 	}
-	else if (key == 90 || key == 122)//z haut
+	else if (key == 90 || key == 122)//z avant
 	{
-		camZ += vitesseTranslation;
-		cibleZ += vitesseTranslation;
+		dx = cibleX - camX;
+		dy = cibleY - camY;
+		norme = sqrt(pow(dx, 2) + pow(dy, 2));
+		dx = dx / norme;
+		dy = dy / norme;
+
+		camX += dx*vitesseTranslation;
+		camY += dy*vitesseTranslation;
+
+		cibleX += dx*vitesseTranslation;
+		cibleY += dy*vitesseTranslation;
+
 	}
-	else if (key == 83 || key == 115)//s bas
+	else if (key == 83 || key == 115)//s arrière
 	{
-		camZ -= vitesseTranslation;
-		cibleZ -= vitesseTranslation;
+		dx = cibleX - camX;
+		dy = cibleY - camY;
+		norme = sqrt(pow(dx, 2) + pow(dy, 2));
+		dx = dx / norme;
+		dy = dy / norme;
+
+		camX -= dx*vitesseTranslation;
+		camY -= dy*vitesseTranslation;
+
+		cibleX -= dx*vitesseTranslation;
+		cibleY -= dy*vitesseTranslation;
 	}
 	else if (key == 81 || key == 113)//q gauche
 	{
 		dx = vitesseTranslation * cos(atan((cibleY - camY) / (cibleX - camX)) + PI / 2);
 		dy = vitesseTranslation * sin(atan((cibleY - camY) / (cibleX - camX)) + PI / 2);
-
-		//	cout << dx << " " << dy << endl;
 
 		camX -= dx;
 		cibleX -= dx;
@@ -240,9 +286,16 @@ void processNormalKeys(unsigned char key, int x, int y)
 			pause = true;
 		}
 	}
+	else if (key == 17)
+	{
+		cout << "ctrl" << endl;
+	}
 
-	//cout << camX << " " << camY << " " << camZ << " " << cibleX << " " << cibleY << " " << cibleZ << endl;
+	cout << camX << " " << camY << " " << camZ << " " << cibleX << " " << cibleY << " " << cibleZ << endl;
+	cout << key << endl;
 
+	if (GLUT_ACTIVE_CTRL)
+		cout << "ok" << endl;
 }
 
 void dessinerBouton()
@@ -259,31 +312,38 @@ void processSpecialKeys(int key, int x, int y)
 {
 	switch (key)
 	{
-	case GLUT_KEY_UP:
+	case GLUT_KEY_UP://haut
 	{
-		std::cout << "zoom in" << endl;
 		autoriserAnim = true;
-		camX -= vitesseZoom*(camX - cibleX);
-		camY -= vitesseZoom*(camY - cibleY);
-		camZ -= vitesseZoom*(camZ - cibleZ);
-		//time = glutGet(GLUT_ELAPSED_TIME);
-		//cout << time << endl;
+		camZ += vitesseTranslation;
+		cibleZ += vitesseTranslation;
 		break;
 	}
 
-	case GLUT_KEY_DOWN:
+	case GLUT_KEY_DOWN://bas
 	{
-		std::cout << "zoom out" << endl;
 		autoriserAnim = true;
-		camX += vitesseZoom*(camX - cibleX);
-		camY += vitesseZoom*(camY - cibleY);
-		camZ += vitesseZoom*(camZ - cibleZ);
+		camZ -= vitesseTranslation;
+		cibleZ -= vitesseTranslation;
 		break;
 	}
 
-	
-
 	}
+
+	//touche control activée = CTRLpress
+	int mod_key = glutGetModifiers();
+	if (mod_key != 0)
+	{
+		if (mod_key == GLUT_ACTIVE_CTRL)
+		{
+			CTRLpress = 1;
+		}
+	}
+	else if (CTRLpress)
+	{
+		CTRLpress = 0;
+	}
+
 	//cout << camX << " " << camY << " " << camZ << " " << cibleX << " " << cibleY << " " << cibleZ << endl;
 }
 
@@ -301,29 +361,76 @@ void checkState(int state, int x, int y)
 
 void mouseEvent(int button, int state, int x, int y)
 {
-	
+	double matModelView[16], matProjection[16];
+	int viewPort[4];
+	int mouseX = 0, mouseY = 0;
+	coord m_start = { 0,0,0 }, m_end = { 0,0,0 };
+	double winX, winY;
+	GLdouble windX, windY, windZ;
+	GLdouble startX = 0, startY = 0, startZ = 0;//début vecteur
+	GLdouble endX = 0, endY = 0, endZ = 0;//fin vecteur
+	double xv = 0, yv = 0, zv = 0;//vecteur direction
+	double xc = 0, yc = 0, zc = 0;//point de parcours
+	double xd = 0, yd = 0, zd = 0;//projection du point sur la droite
+	double k = 0;
+	double dist = 0;
+	double distOpt = 0;
+
 	mouseButton = button;
 	switch (button) {
 	case GLUT_LEFT_BUTTON:
 		if (state == GLUT_DOWN)
 		{
-			oldX = x;
-			oldY = y;
+			if (CTRLpress)
+			{
+				// get matrix and viewport:
+				glGetDoublev(GL_MODELVIEW_MATRIX, matModelView);
+				glGetDoublev(GL_PROJECTION_MATRIX, matProjection);
+				glGetIntegerv(GL_VIEWPORT, viewPort);
+
+				//window pos of mouse, Y is inverted on Windows
+				winX = x;
+				winY = viewPort[3] - y;
+
+				// get point on the 'near' plane (third param is set to 0.0)
+				//gluUnProject(winX, winY, 0.0, matModelView, matProjection, viewPort, &startX, &startY, &startZ);
+
+				// get point on the 'far' plane (third param is set to 1.0)
+				//gluUnProject(winX, winY, 1.0, matModelView, matProjection, viewPort, &endX, &endY, &endZ);
+
+				// now you can create a ray from m_start to m_end
+
+				//cout << winX << ", " << winY << "; " << startX << ", " << startY << ", " << startZ << "; " << endX << ", " << endY << ", " << endZ << ", " << endl;
+
+				//distOpt = sqrt(pow(xd - vPoints[0].getX(), 2) + pow(yd - vPoints[0].getY(), 2) + pow(zd - vPoints[0].getZ(), 2));
+
+				gluProject(vPoints[0].getX(), vPoints[0].getY(), vPoints[0].getZ(), matModelView, matProjection, viewPort, &windX, &windY, &windZ);
+				windY = glutGet(GLUT_WINDOW_HEIGHT) - windY;
+				distOpt = sqrt(pow(windX - x, 2) + pow(windY - y, 2));
+				ptProche = 0;
+
+				for (int i = 1; i < vPoints.size(); i++)
+				{
+					gluProject(vPoints[i].getX(), vPoints[i].getY(), vPoints[i].getZ(), matModelView, matProjection, viewPort, &windX, &windY, &windZ);
+					windY = glutGet(GLUT_WINDOW_HEIGHT) - windY;
+					dist = sqrt(pow(windX - x, 2) + pow(windY - y, 2));
+					if (dist < distOpt)
+					{
+						distOpt = dist;
+						ptProche = i;
+					}
+				}
+
+				//cout << "mouse x, y: " << x << " " << y << "; point 0: " << windX << ", " << windY << ", " << windZ << endl;
+				//cout << "point optimal: " << ptProche << endl;			
+			}
 		}
-		cout << "\nx";
-		cout << x;
-		cout << "\ny";
-		cout << y;
-		checkState(state, x, y);
-		autoriserAnim = true;
-		cout << "\nfeneteX";
-		cout << fenetreX;
-		cout << "\nFenetreY";
-		cout << fenetreY;
-		if (x == fenetreX - 1)
+		else if (state == GLUT_UP)
 		{
-			cout << "hello";
+			init = false;
 		}
+		autoriserAnim = true;
+
 		break;
 	case GLUT_RIGHT_BUTTON:
 		//cout<<"RIGHT";
@@ -350,13 +457,67 @@ void mouseEvent(int button, int state, int x, int y)
 		autoriserAnim = true;
 		break;
 	}
+	
 }
 
 void mouseMotion(int x, int y)
 {
+	double r = 0;//distance caméra-cible
+	double v = 0;
+	double u = 0;
+
+	double uu = 0, vv = 0, xx = 0, yy = 0, zz = 0;
+
+	int invertZ = 1;
+
 	if (mouseButton == GLUT_LEFT_BUTTON)
 	{
-		//rajouter fonctions rotation autour d'un point
+		if (!init)
+		{
+			oldX = x;
+			oldY = y;
+			init = true;
+		}
+		else
+		{
+			r = sqrt(pow(camX - cibleX, 2) + pow(camY - cibleY, 2) + pow(camZ - cibleZ, 2));
+			v = acos((camZ - cibleZ) / r);
+
+			if (sin(v) == 0)
+			{
+				cout << "sin(v) = 0" << endl;
+			}
+			else
+			{
+				if (camY >= cibleY)
+				{
+					u = acos((camX - cibleX) / (r*sin(v)));
+				}
+				else
+				{
+					u = -acos((camX - cibleX) / (r*sin(v)));
+				}
+
+				uu = u - vitesseRotation * (x - oldX);
+				vv = v - vitesseRotation * (y - oldY);
+
+				xx = r*cos(uu)*sin(vv);
+				yy = r*sin(uu)*sin(vv);
+				zz = r*cos(vv);
+
+				camX = cibleX + xx;
+				camY = cibleY + yy;
+				camZ = cibleZ + zz;
+
+				//cout << u << ", " << uu << endl ;
+
+				//cout << r << ", " << v << ", " << u << "; " << vv << ", " << uu << "; " << xx << ", " << yy << ", " << zz << "; " << camX << ", " << camY << ", " << camZ << endl;
+
+				oldX = x;
+				oldY = y;
+			}
+
+		}
 	}
 
 	autoriserAnim = true;
@@ -367,6 +528,9 @@ void mouseMotion(int x, int y)
 
 void Draw()
 {
+
+	double tailleSphere = 1;
+
 	glMatrixMode(GL_MODELVIEW);
 
 	glClear(GL_COLOR_BUFFER_BIT);
@@ -406,16 +570,9 @@ void Draw()
 
 	afficherParcours(vPoints);
 
-
-	
-	
-
-	
-
 	//sphère
 	if (go)
 	{
-		double tailleSphere = 1;
 		glTranslatef(sphX, sphY, sphZ);
 		glColor3d(255, 0, 0);
 		glutSolidSphere(tailleSphere, tailleSphere * 20, tailleSphere * 20);
@@ -444,7 +601,13 @@ void Draw()
 
 	}
 
-	//cout << time << ", " << startTime << ", " << pAct << endl;
+	//point clic
+
+	glTranslatef(vPoints[ptProche].getX(), vPoints[ptProche].getY(), vPoints[ptProche].getZ());
+	glColor3d(0, 255, 0);
+	glutSolidSphere(tailleSphere, tailleSphere * 20, tailleSphere * 20);
+	glTranslatef(-vPoints[ptProche].getX(), -vPoints[ptProche].getY(), -vPoints[ptProche].getZ());
+
 
 	glutSwapBuffers();
 }
@@ -460,7 +623,7 @@ void Reshape(int x, int y)
 	gluPerspective(70.0, (GLdouble)x / (GLdouble)y, 1, 1000);
 	glMatrixMode(GL_MODELVIEW);
 	glViewport(0, 0, x, y);  //Use the whole window for rendering
-	cout << "Width" << fenetreX;
+	//cout << "Width" << fenetreX;
 }
 
 
@@ -473,7 +636,3 @@ void animation()
 	Draw();
 }
 
-void motion(vector<Point> vPoints, double t, Point point)
-{
-
-}

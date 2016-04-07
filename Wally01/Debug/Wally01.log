@@ -1,6 +1,12 @@
 ﻿  main.cpp
-main.cpp(122): error C3861: 'MarshalString' : identificateur introuvable
-main.cpp(433): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
-main.cpp(435): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
-main.cpp(436): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
-main.cpp(448): warning C4018: '>=' : incompatibilité signed/unsigned
+main.cpp(411): warning C4018: '<' : incompatibilité signed/unsigned
+main.cpp(575): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(577): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
+main.cpp(578): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(590): warning C4018: '>=' : incompatibilité signed/unsigned
+main.cpp(605): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(607): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
+main.cpp(608): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+  main.obj : /DEBUG:FASTLINK n'est pas pris en charge en présence de code managé ; redémarrage de l'édition des liens avec /DEBUG:FULL
+  Wally01.vcxproj -> C:\Users\Fitani\ProjetWally\Debug\Wally01.exe
+  Wally01.vcxproj -> C:\Users\Fitani\ProjetWally\Debug\Wally01.pdb (Partial PDB)

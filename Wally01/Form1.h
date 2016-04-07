@@ -36,9 +36,10 @@ namespace Wally01 {
 	public:
 		int flag = 0;
 		String^ path = gcnew String("");
-		String^ contenuTextbox3 = gcnew String("");
-		String^ contenuTextbox4 = gcnew String("");
-		String^ contenuTextbox5 = gcnew String("");
+		//String^ contenuTextbox3 = gcnew String("");
+		int contenudomaineUpDown3 = 0;
+		int contenudomaineUpDown4 = 0; 
+		int contenudomaineUpDown5 = 0;
 		
 		
 
@@ -75,9 +76,9 @@ namespace Wally01 {
 	private: System::Windows::Forms::CheckBox^  checkBox3;
 
 	private: System::Windows::Forms::CheckBox^  checkBox1;
-	public: System::Windows::Forms::TextBox^  textBox5;
-	private: System::Windows::Forms::TextBox^  textBox4;
-	public: System::Windows::Forms::TextBox^  textBox3;
+
+
+
 	private: System::Windows::Forms::Label^  label12;
 	private: System::Windows::Forms::Label^  label13;
 	private: System::Windows::Forms::ComboBox^  comboBox_choix1;
@@ -93,6 +94,9 @@ namespace Wally01 {
 	private: System::Windows::Forms::ComboBox^  comboBox_choix2;
 
 	private: System::Windows::Forms::CheckBox^  checkBox2;
+	private: System::Windows::Forms::DomainUpDown^  domainUpDown3;
+	private: System::Windows::Forms::DomainUpDown^  domainUpDown2;
+	private: System::Windows::Forms::DomainUpDown^  domainUpDown1;
 
 
 
@@ -160,11 +164,11 @@ namespace Wally01 {
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
 			this->label3 = (gcnew System::Windows::Forms::Label());
 			this->tabPage10 = (gcnew System::Windows::Forms::TabPage());
+			this->domainUpDown3 = (gcnew System::Windows::Forms::DomainUpDown());
+			this->domainUpDown2 = (gcnew System::Windows::Forms::DomainUpDown());
+			this->domainUpDown1 = (gcnew System::Windows::Forms::DomainUpDown());
 			this->checkBox3 = (gcnew System::Windows::Forms::CheckBox());
 			this->checkBox1 = (gcnew System::Windows::Forms::CheckBox());
-			this->textBox5 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox4 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
 			this->label10 = (gcnew System::Windows::Forms::Label());
 			this->label9 = (gcnew System::Windows::Forms::Label());
 			this->label8 = (gcnew System::Windows::Forms::Label());
@@ -288,11 +292,11 @@ namespace Wally01 {
 			// 
 			// tabPage10
 			// 
+			this->tabPage10->Controls->Add(this->domainUpDown3);
+			this->tabPage10->Controls->Add(this->domainUpDown2);
+			this->tabPage10->Controls->Add(this->domainUpDown1);
 			this->tabPage10->Controls->Add(this->checkBox3);
 			this->tabPage10->Controls->Add(this->checkBox1);
-			this->tabPage10->Controls->Add(this->textBox5);
-			this->tabPage10->Controls->Add(this->textBox4);
-			this->tabPage10->Controls->Add(this->textBox3);
 			this->tabPage10->Controls->Add(this->label10);
 			this->tabPage10->Controls->Add(this->label9);
 			this->tabPage10->Controls->Add(this->label8);
@@ -306,6 +310,30 @@ namespace Wally01 {
 			this->tabPage10->TabIndex = 9;
 			this->tabPage10->Text = L"Configuration 3D";
 			this->tabPage10->UseVisualStyleBackColor = true;
+			// 
+			// domainUpDown3
+			// 
+			this->domainUpDown3->Location = System::Drawing::Point(412, 147);
+			this->domainUpDown3->Name = L"domainUpDown3";
+			this->domainUpDown3->Size = System::Drawing::Size(105, 22);
+			this->domainUpDown3->TabIndex = 15;
+			this->domainUpDown3->Text = L"domainUpDown3";
+			// 
+			// domainUpDown2
+			// 
+			this->domainUpDown2->Location = System::Drawing::Point(412, 112);
+			this->domainUpDown2->Name = L"domainUpDown2";
+			this->domainUpDown2->Size = System::Drawing::Size(105, 22);
+			this->domainUpDown2->TabIndex = 14;
+			this->domainUpDown2->Text = L"domainUpDown2";
+			// 
+			// domainUpDown1
+			// 
+			this->domainUpDown1->Location = System::Drawing::Point(412, 72);
+			this->domainUpDown1->Name = L"domainUpDown1";
+			this->domainUpDown1->Size = System::Drawing::Size(128, 22);
+			this->domainUpDown1->TabIndex = 13;
+			this->domainUpDown1->Text = L"domainUpDown1";
 			// 
 			// checkBox3
 			// 
@@ -324,30 +352,6 @@ namespace Wally01 {
 			this->checkBox1->Size = System::Drawing::Size(18, 17);
 			this->checkBox1->TabIndex = 10;
 			this->checkBox1->UseVisualStyleBackColor = true;
-			// 
-			// textBox5
-			// 
-			this->textBox5->Location = System::Drawing::Point(408, 147);
-			this->textBox5->Name = L"textBox5";
-			this->textBox5->Size = System::Drawing::Size(279, 22);
-			this->textBox5->TabIndex = 9;
-			this->textBox5->TextChanged += gcnew System::EventHandler(this, &Form1::textBox5_TextChanged);
-			// 
-			// textBox4
-			// 
-			this->textBox4->Location = System::Drawing::Point(408, 112);
-			this->textBox4->Name = L"textBox4";
-			this->textBox4->Size = System::Drawing::Size(279, 22);
-			this->textBox4->TabIndex = 8;
-			this->textBox4->TextChanged += gcnew System::EventHandler(this, &Form1::textBox4_TextChanged);
-			// 
-			// textBox3
-			// 
-			this->textBox3->Location = System::Drawing::Point(408, 72);
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->Size = System::Drawing::Size(279, 22);
-			this->textBox3->TabIndex = 7;
-			this->textBox3->TextChanged += gcnew System::EventHandler(this, &Form1::textBox3_TextChanged_1);
 			// 
 			// label10
 			// 
@@ -634,15 +638,33 @@ namespace Wally01 {
 		comboBox_choix4->Enabled = false;
 		comboBox_choix5->Enabled = false;
 		comboBox_choix6->Enabled = false;
+
+		//20
+		for (int i = 0; i <=100; i++)
+		{
+			domainUpDown1->Items->Insert(i, 100-i);
+		}
+		//10
+		for (int i = 0; i <= 100; i++)
+		{
+			domainUpDown2->Items->Insert(i, 100 - i);
+		}
+		//20
+		for (int i = 0; i <= 100; i++)
+		{
+			domainUpDown3->Items->Insert(i, 100 - i);
+		}
+		domainUpDown1->SelectedIndex = 80;
+		domainUpDown2->SelectedIndex = 90;
+		domainUpDown3->SelectedIndex = 80;
 	}
 private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e) {
-	contenuTextbox3 = textBox3->Text;
-	contenuTextbox4 = textBox4->Text; 
-	contenuTextbox5 = textBox5->Text;
+	contenudomaineUpDown3 = (int) domainUpDown1->SelectedItem;
+	contenudomaineUpDown4 = (int)domainUpDown2->SelectedItem;
+	contenudomaineUpDown5 = (int)domainUpDown3->SelectedItem;
 	
 
-	MessageBox::Show(contenuTextbox5, "Erreur" , MessageBoxButtons::OK, MessageBoxIcon::Error);
-	
+
 	path = textBox1->Text;
 	
 	flag = 1;
@@ -764,66 +786,8 @@ private: System::Void textBox2_TextChanged(System::Object^  sender, System::Even
 }
 
 		
-	private: System::Void textBox3_TextChanged_1(System::Object^  sender, System::EventArgs^  e) {
-		if (System::Text::RegularExpressions::Regex::IsMatch(textBox3->Text, "[ ^ 0-9]"))    //autoriser l'utilisateur a entré uniquement un chiffre entre 0 et 9
-		{
-
-		}
-		else
-		{
-			//si la textbox ne contient aucun caractère ne pas génerer le message d'erreur
-			if (textBox3->Text == "")
-			{
-
-			}
-			else
-			{//sinon, si la textbox contient des caractères ou des lettres ==> erreur
-				MessageBox::Show("Veuillez entrer un nombre", "Erreur", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				textBox3->Text = "";
-			}
-
-		}
-	}
-	private: System::Void textBox4_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-		if (System::Text::RegularExpressions::Regex::IsMatch(textBox4->Text, "[ ^ 0-9]"))    //autoriser l'utilisateur a entré uniquement un chiffre entre 0 et 9
-		{
-
-		}
-		else
-		{
-			//si la textbox ne contient aucun caractère ne pas génerer le message d'erreur
-			if (textBox4->Text == "")
-			{
-
-			}
-			else
-			{//sinon, si la textbox contient des caractères ou des lettres ==> erreur
-				MessageBox::Show("Veuillez entrer un nombre", "Erreur", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				textBox4->Text = "";
-			}
-
-		}
-	}
-	private: System::Void textBox5_TextChanged(System::Object^  sender, System::EventArgs^  e) {
-
-		if (System::Text::RegularExpressions::Regex::IsMatch(textBox5->Text, "[ ^ 0-9]"))    //autoriser l'utilisateur a entré uniquement un chiffre entre 0 et 9
-		{
-
-		}
-		else
-		{
-			//si la textbox ne contient aucun caractère ne pas génerer le message d'erreur
-			if (textBox5->Text == "")
-			{
-
-			}
-			else
-			{//sinon, si la textbox contient des caractères ou des lettres ==> erreur
-				MessageBox::Show("Veuillez entrer un nombre", "Erreur", MessageBoxButtons::OK, MessageBoxIcon::Error);
-				textBox5->Text = "";
-			}
-
-		}
-	}
+	
+	
+	
 };
 }

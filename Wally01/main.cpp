@@ -1,6 +1,6 @@
 
 #include "Form1.h"
-
+#include <windows.h>
 #include <glew.h>
 #include <glut.h>
 #include <freeglut.h>
@@ -14,13 +14,14 @@
 #include "cameraGL.h"
 
 
+
 #define PI 3.1415926535
 
 using namespace std;
 using namespace System;
 using namespace System::Windows::Forms;
 
-
+static int mainWindow, secondWindow ;
 vector<Point> vPoints;
 bool autoriserAnim = false;
 GLfloat xRotated, yRotated, zRotated;
@@ -42,7 +43,8 @@ int windowHeight = GLUT_WINDOW_Y;
 double sphX = 0, sphY = 0, sphZ = 0;
 long time = 0, startTime = 0;
 bool go = false;//on enclenche le déplacement
-
+size_t win_w = 0;
+size_t win_h = 0;
 
 long pAct = 0;//point actuel
 
@@ -60,6 +62,7 @@ void processNormalKeys(unsigned char key, int x, int y);//peut-être à changer. h
 void mouseEvent(int button, int state, int x, int y);
 void mouseMotion(int x, int y);
 void checkState(int state, int x, int y);
+
 void Draw();
 //void dessinerBouton();
 void Reshape(int x, int y);
@@ -71,14 +74,323 @@ long ptProche = 0;
 
 bool pause = true;
 
-
+int compteurFenetre = 0;
 long pPause = 0;
 
 bool init = false;
 int CTRLpress = 0;
 
+void initGL() {
+	// Set "clearing" or background color
+	glClearColor(1.0f, 1.0f, 1.0f, 1.0f); // Black and opaque
+}
+
+void display() {
+	//initGL();
+	glClear(GL_COLOR_BUFFER_BIT);   // Clear the color buffer with current clearing color
+
+	
+	const int taille = 10000;
+
+	float x[taille];
+	float y[taille];
+
+	float minx = 0;
+	float maxx = 0;
+
+	float miny = 0;
+	float maxy = 0;
+
+	for (int i = 0; i < taille; i++)
+	{
+		x[i] = (float)i*0.01 - 10;
+		y[i] = x[i] * sin(0.3*x[i]) + 30;
+
+		minx = min(minx, x[i]);
+		miny = min(miny, y[i]);
+		maxx = max(maxx, x[i]);
+		maxy = max(maxy, y[i]);
+	}
+
+	glBegin(GL_LINE_STRIP); //En bas à gauche
+	glColor3f(0.0f, 0.0f, 1.0f); // Blue
+	float abs, ord;
+	for (int i = 0; i < taille; i++)
+	{
+		abs = (x[i] - minx) / (maxx - minx);
+		ord = (y[i] - miny) / (maxy - miny);
+
+		abs = 0.05 + 0.9*abs;
+		ord = 0.05 + 0.9*ord;
+
+		glVertex2f(abs, ord);
+	}
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En bas à gauche, axe horizontal
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	ord = -miny / (maxy - miny);
+	ord = 0.05 + 0.9*ord;
+
+	glVertex2f(0.05, ord);
+	glVertex2f(0.95, ord);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En bas à gauche, axe vertical
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	abs = -minx / (maxx - minx);
+	abs = 0.05 + 0.9*abs;
+
+	glVertex2f(abs, 0.05);
+	glVertex2f(abs, 0.95);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En bas à droite
+	glColor3f(0.0f, 0.0f, 1.0f); // Blue
+	for (int i = 0; i < taille; i++)
+	{
+		abs = (x[i] - minx) / (maxx - minx);
+		ord = (y[i] - miny) / (maxy - miny);
+
+		abs = 1.05 + 0.9*abs;
+		ord = 0.05 + 0.9*ord;
+
+		glVertex2f(abs, ord);
+	}
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En bas à droite, axe horizontal
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	ord = -miny / (maxy - miny);
+	ord = 0.05 + 0.9*ord;
+
+	glVertex2f(1.05, ord);
+	glVertex2f(1.95, ord);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En bas à droite, axe vertical
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	abs = -minx / (maxx - minx);
+	abs = 1.05 + 0.9*abs;
+
+	glVertex2f(abs, 0.05);
+	glVertex2f(abs, 0.95);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //Au milieu à gauche
+	glColor3f(0.0f, 0.0f, 1.0f); // Blue
+	for (int i = 0; i < taille; i++)
+	{
+		abs = (x[i] - minx) / (maxx - minx);
+		ord = (y[i] - miny) / (maxy - miny);
+
+		abs = 0.05 + 0.9*abs;
+		ord = 1.05 + 0.9*ord;
+
+		glVertex2f(abs, ord);
+	}
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //Au milieu à gauche, axe horizontal
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	ord = -miny / (maxy - miny);
+	ord = 1.05 + 0.9*ord;
+
+	glVertex2f(0.05, ord);
+	glVertex2f(0.95, ord);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //Au milieu à gauche, axe vertical
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	abs = -minx / (maxx - minx);
+	abs = 0.05 + 0.9*abs;
+
+	glVertex2f(abs, 1.05);
+	glVertex2f(abs, 1.95);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //Au milieu à droite
+	glColor3f(0.0f, 0.0f, 1.0f); // Blue
+	for (int i = 0; i < taille; i++)
+	{
+		abs = (x[i] - minx) / (maxx - minx);
+		ord = (y[i] - miny) / (maxy - miny);
+
+		abs = 1.05 + 0.9*abs;
+		ord = 1.05 + 0.9*ord;
+
+		glVertex2f(abs, ord);
+	}
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //Au milieu à droite, axe horizontal
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	ord = -miny / (maxy - miny);
+	ord = 1.05 + 0.9*ord;
+
+	glVertex2f(1.05, ord);
+	glVertex2f(1.95, ord);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //Au milieu à droite, axe vertical
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	abs = -minx / (maxx - minx);
+	abs = 1.05 + 0.9*abs;
+
+	glVertex2f(abs, 1.05);
+	glVertex2f(abs, 1.95);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En haut à gauche
+	glColor3f(0.0f, 0.0f, 1.0f); // Blue
+	for (int i = 0; i < taille; i++)
+	{
+		abs = (x[i] - minx) / (maxx - minx);
+		ord = (y[i] - miny) / (maxy - miny);
+
+		abs = 0.05 + 0.9*abs;
+		ord = 2.05 + 0.9*ord;
+
+		glVertex2f(abs, ord);
+	}
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En haut à gauche, axe horizontal
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	ord = -miny / (maxy - miny);
+	ord = 2.05 + 0.9*ord;
+
+	glVertex2f(0.05, ord);
+	glVertex2f(0.95, ord);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En haut à gauche, axe vertical
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	abs = -minx / (maxx - minx);
+	abs = 0.05 + 0.9*abs;
+
+	glVertex2f(abs, 2.05);
+	glVertex2f(abs, 2.95);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En haut à droite
+	glColor3f(0.0f, 0.0f, 1.0f); // Blue
+	for (int i = 0; i < taille; i++)
+	{
+		abs = (x[i] - minx) / (maxx - minx);
+		ord = (y[i] - miny) / (maxy - miny);
+
+		abs = 1.05 + 0.9*abs;
+		ord = 2.05 + 0.9*ord;
+
+		glVertex2f(abs, ord);
+	}
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En haut à droite, axe horizontal
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	ord = -miny / (maxy - miny);
+	ord = 2.05 + 0.9*ord;
+
+	glVertex2f(1.05, ord);
+	glVertex2f(1.95, ord);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //En haut à droite, axe vertical
+	glColor3f(1.0f, 0.0f, 0.0f); // Red
+
+	abs = -minx / (maxx - minx);
+	abs = 1.05 + 0.9*abs;
+
+	glVertex2f(abs, 2.05);
+	glVertex2f(abs, 2.95);
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //Séparation horizontale graphiques, en bas
+	glColor3f(0.0f, 0.0f, 0.0f); // Black
+	for (int i = 0; i < taille; i++)
+	{
+
+		glVertex2f(0, 1);
+		glVertex2f(2, 1);
+	}
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //Séparation horizontale graphiques, en haut
+	glColor3f(0.0f, 0.0f, 0.0f); // Black
+	for (int i = 0; i < taille; i++)
+	{
+
+		glVertex2f(0, 2);
+		glVertex2f(2, 2);
+	}
+
+	glEnd();
+
+	glBegin(GL_LINE_STRIP); //Séparation verticale graphiques
+	glColor3f(0.0f, 0.0f, 0.0f); // Black
+	for (int i = 0; i < taille; i++)
+	{
+
+		glVertex2f(1, 0);
+		glVertex2f(1, 3);
+	}
+
+	glEnd();
+
+	glFlush();  // Render now
+}
 
 
+void mouseEvent2D(int button, int state, int x, int y)
+{
+	switch (button) {
+	case GLUT_LEFT_BUTTON:
+	{
+		
+		break;
+	}
+
+	}
+	}
+void Reshape2D(int width, int height)
+{
+	
+	glViewport(0, 0, (GLsizei)width, (GLsizei)height);
+	glutPostRedisplay();
+
+
+}
 
 //méthode bizarre pour convertir un String^ en string 
 void MarshalString(String ^ s, string& os) {
@@ -109,23 +421,11 @@ int  main(int argc, char *argv[])
 	cout << "Information accélération :  " << "Ax :  " << vPoints[numeroPoint].getAx() << " Ay: " << vPoints[numeroPoint].getAy() << " Az: " << vPoints[numeroPoint].getAz();*/
 
 	//démarrage OpenGL
-	glutInit(&argc, argv);
-
-	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
-	glutInitWindowSize(640, 480);
 	
-	//creation fenêtre 1 
-	int Window_1 = glutCreateWindow(argv[0]);
-	glutSetWindowTitle("Projet Walibi");
-	glutSetWindowTitle("Fenêtre 2");
-	 
-
+	
 	
 	//creation fenêtre 2
-	int window_2 = glutCreateWindow(argv[1]);
 	
-
-
 
 	
 	cout << "Width" << fenetreX;
@@ -135,7 +435,7 @@ int  main(int argc, char *argv[])
 
 	
 	
-	glutHideWindow();
+	
 	Application::Run(%fenetreMain);
 
 	if (fenetreMain.flag == 1)
@@ -155,19 +455,132 @@ int  main(int argc, char *argv[])
 		vitesseZoom = Convert::ToDouble(fenetreMain.contenudomaineUpDown5)/200;
 
 		
-		glutShowWindow();
-		glutMouseFunc(mouseEvent);
-		glutSpecialFunc(processSpecialKeys);
-		glutKeyboardFunc(processNormalKeys);
 
-		glutMotionFunc(mouseMotion);
+		//creation fenêtre 1 
+		glutInit(&argc, argv);
+		/*int Window_1 = glutCreateWindow(argv[0]);
+		glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
+		
 		glutReshapeFunc(Reshape);
 		glutDisplayFunc(Draw);
-		//glutDisplayFunc(dessinerBouton);
-		glutIdleFunc(animation);
+		
+		
+		//glutShowWindow();
+
+		//glutMainLoop();
+
+		int window_2 = glutCreateWindow(argv[1]);
+		
+
+		
+		glutSetWindowTitle("Graphiques 2D");  // Create window with the given title
+		glutInitWindowSize(640, 480);   // Set the window's initial width & height
+		glutInitWindowPosition(50, 50); // Position the window's initial top-left corner
+
+										// Set clipping area's left, right, bottom, top : gluOrtho2D(left, right, bottom, top);
+		
+								//gluOrtho2D(0, 2, 1, 3); //4 graphiques
+								//gluOrtho2D(0, 1, 1, 3); //2 graphiques (un en haut, un en bas)
+								//gluOrtho2D(0, 2, 2, 3); //2 graphiques (un à gauche, un à droite)
+								//gluOrtho2D(0, 1, 2, 3); //1 graphiques
+
+		glutDisplayFunc(display);       // Register callback handler for window re-paint event
+		                     // Our own OpenGL initialization*/ 
+
+		//création de la fenêtre 1 ==> fenêtre 3D
+
+		/*secondWindow = glutCreateWindow("Graphique 2D");
+		glutInitWindowSize(640, 480);
+		
+		switch (fenetreMain.indicateurComboNombreGraphique)
+		{
+		case 0:
+		{
+			gluOrtho2D(0, 1, 2, 3);
+			break;
+		}
+		case 1:
+		{
+			gluOrtho2D(0, 1, 1, 3);
+			break;
+		}
+		case 2:
+		{
+			gluOrtho2D(0, 2, 1, 3); //gluOrtho2D(0, 2, 1, 3); //4 graphiques
+			break;
+		}
+		case 3:
+		{
+			gluOrtho2D(0, 2, 0, 3); //6 graphiques
+			break;
+		}
+		default:
+			break;
+		}
+		
+		
+		//gluOrtho2D(0, 1, 1, 3); //2 graphiques (un en haut, un en bas)
+								//gluOrtho2D(0, 2, 2, 3); //2 graphiques (un à gauche, un à droite)
+								//gluOrtho2D(0, 1, 2, 3); //1 graphiques
+	
+			glutDisplayFunc(display);  /* Register display callback for window */
+			//glutReshapeFunc(Reshape2D);
+			//glutMouseFunc(mouseEvent2D);
+		
+	
+		
+
+
+		//CreateProcessA("C:\Users\Fitani\Downloads\WallyTest2D6Graphiques\WallyTest2D\Test2D\Debug\Test2D.exe", NULL, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+		
+			//CreateProcess(NULL, szCmdline, /* ... */);
+
+		//CreateProcess("C:\Test2D.exe", NULL, NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi);
+		
+		ShellExecuteA(NULL, "open",
+			"C:\Test2D.exe",
+			"your params",
+			"working dir", SW_SHOW);
+
+
+		
+		mainWindow = glutCreateWindow("Projet Walibi");
+
+		
+			glutInitWindowSize(640, 640);
+
+
+
+				glutMotionFunc(mouseMotion);
+			glutMouseFunc(mouseEvent);
+			glutSpecialFunc(processSpecialKeys);
+			glutKeyboardFunc(processNormalKeys);
+
+
+			glutReshapeFunc(Reshape);        /* Register reshape callback for window */
+
+
+
+			glutDisplayFunc(Draw);        /* Register display callback for window */
+			
+
+
+		
+
+	
+
+			/* create second window */
+
+		
+		
+			
+
+		glutMainLoop();
+		
+
 		
 	}
-	glutMainLoop();
+	
 	
 
 	
@@ -449,6 +862,7 @@ void mouseEvent(int button, int state, int x, int y)
 	
 }
 
+
 void afficherTexte(int x, int y, string motAAfficher) {
 	glRasterPos2i(x, y);
 	glutBitmapString(GLUT_BITMAP_HELVETICA_12, (const unsigned char*)motAAfficher.c_str());
@@ -605,7 +1019,7 @@ void Draw()
 	
 	
 
-	afficherTexte(50, 50, "salut Laurent Vereb et Raphael Lejeune");
+	afficherTexte(50, 50, "Bonjour");
 
 		
 	glutSwapBuffers();
@@ -617,8 +1031,8 @@ void Draw()
 
 void Reshape(int x, int y)
 {
-	fenetreX = GLUT_SCREEN_WIDTH;
-	 fenetreY = GLUT_SCREEN_HEIGHT;
+	
+	glutIdleFunc(animation);
 	//Peut prendre 3 paramètres ==> GL_PROJECTION,GL_TEXTURE,GL_MODELVIEW ou même GL_COLOR
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -633,6 +1047,7 @@ void Reshape(int x, int y)
 }
 
 
+
 void animation()
 {
 	if (autoriserAnim == true)
@@ -641,5 +1056,6 @@ void animation()
 	}
 	Draw();
 }
+
 
 

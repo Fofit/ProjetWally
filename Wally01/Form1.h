@@ -1,5 +1,6 @@
 #pragma once
-
+#include <iostream>
+#include <fstream>
 namespace Wally01 {
 
 	using namespace System;
@@ -40,7 +41,8 @@ namespace Wally01 {
 		int contenudomaineUpDown3 = 0;
 		int contenudomaineUpDown4 = 0; 
 		int contenudomaineUpDown5 = 0;
-		
+		int indicateurComboNombreGraphique = 0;
+
 		
 
 
@@ -318,6 +320,7 @@ namespace Wally01 {
 			this->domainUpDown3->Size = System::Drawing::Size(105, 22);
 			this->domainUpDown3->TabIndex = 15;
 			this->domainUpDown3->Text = L"domainUpDown3";
+			this->domainUpDown3->SelectedItemChanged += gcnew System::EventHandler(this, &Form1::domainUpDown3_SelectedItemChanged);
 			// 
 			// domainUpDown2
 			// 
@@ -326,14 +329,16 @@ namespace Wally01 {
 			this->domainUpDown2->Size = System::Drawing::Size(105, 22);
 			this->domainUpDown2->TabIndex = 14;
 			this->domainUpDown2->Text = L"domainUpDown2";
+			this->domainUpDown2->SelectedItemChanged += gcnew System::EventHandler(this, &Form1::domainUpDown2_SelectedItemChanged);
 			// 
 			// domainUpDown1
 			// 
 			this->domainUpDown1->Location = System::Drawing::Point(412, 72);
 			this->domainUpDown1->Name = L"domainUpDown1";
-			this->domainUpDown1->Size = System::Drawing::Size(128, 22);
+			this->domainUpDown1->Size = System::Drawing::Size(105, 22);
 			this->domainUpDown1->TabIndex = 13;
 			this->domainUpDown1->Text = L"domainUpDown1";
+			this->domainUpDown1->SelectedItemChanged += gcnew System::EventHandler(this, &Form1::domainUpDown1_SelectedItemChanged);
 			// 
 			// checkBox3
 			// 
@@ -443,7 +448,7 @@ namespace Wally01 {
 					L"moduleVit", L"VitX", L"VitY", L"VitZ", L"modulePos", L"PosX", L"PosY", L"PosZ", L"EnergiePotentielle", L"EnergieCinétique",
 					L"EnergieMécanique"
 			});
-			this->comboBox_choix1->Location = System::Drawing::Point(114, 147);
+			this->comboBox_choix1->Location = System::Drawing::Point(274, 128);
 			this->comboBox_choix1->Name = L"comboBox_choix1";
 			this->comboBox_choix1->Size = System::Drawing::Size(121, 24);
 			this->comboBox_choix1->TabIndex = 9;
@@ -456,7 +461,7 @@ namespace Wally01 {
 					L"moduleVit", L"VitX", L"VitY", L"VitZ", L"modulePos", L"PosX", L"PosY", L"PosZ", L"EnergiePotentielle", L"EnergieCinétique",
 					L"EnergieMécanique"
 			});
-			this->comboBox_choix6->Location = System::Drawing::Point(539, 208);
+			this->comboBox_choix6->Location = System::Drawing::Point(448, 259);
 			this->comboBox_choix6->Name = L"comboBox_choix6";
 			this->comboBox_choix6->Size = System::Drawing::Size(121, 24);
 			this->comboBox_choix6->TabIndex = 8;
@@ -469,7 +474,7 @@ namespace Wally01 {
 					L"moduleVit", L"VitX", L"VitY", L"VitZ", L"modulePos", L"PosX", L"PosY", L"PosZ", L"EnergiePotentielle", L"EnergieCinétique",
 					L"EnergieMécanique"
 			});
-			this->comboBox_choix5->Location = System::Drawing::Point(539, 147);
+			this->comboBox_choix5->Location = System::Drawing::Point(274, 262);
 			this->comboBox_choix5->Name = L"comboBox_choix5";
 			this->comboBox_choix5->Size = System::Drawing::Size(121, 24);
 			this->comboBox_choix5->TabIndex = 7;
@@ -482,7 +487,7 @@ namespace Wally01 {
 					L"moduleVit", L"VitX", L"VitY", L"VitZ", L"modulePos", L"PosX", L"PosY", L"PosZ", L"EnergiePotentielle", L"EnergieCinétique",
 					L"EnergieMécanique"
 			});
-			this->comboBox_choix4->Location = System::Drawing::Point(332, 208);
+			this->comboBox_choix4->Location = System::Drawing::Point(448, 197);
 			this->comboBox_choix4->Name = L"comboBox_choix4";
 			this->comboBox_choix4->Size = System::Drawing::Size(121, 24);
 			this->comboBox_choix4->TabIndex = 6;
@@ -495,7 +500,7 @@ namespace Wally01 {
 					L"moduleVit", L"VitX", L"VitY", L"VitZ", L"modulePos", L"PosX", L"PosY", L"PosZ", L"EnergiePotentielle", L"EnergieCinétique",
 					L"EnergieMécanique"
 			});
-			this->comboBox_choix3->Location = System::Drawing::Point(332, 147);
+			this->comboBox_choix3->Location = System::Drawing::Point(448, 128);
 			this->comboBox_choix3->Name = L"comboBox_choix3";
 			this->comboBox_choix3->Size = System::Drawing::Size(121, 24);
 			this->comboBox_choix3->TabIndex = 5;
@@ -508,7 +513,7 @@ namespace Wally01 {
 					L"moduleVit", L"VitX", L"VitY", L"VitZ", L"modulePos", L"PosX", L"PosY", L"PosZ", L"EnergiePotentielle", L"EnergieCinétique",
 					L"EnergieMécanique"
 			});
-			this->comboBox_choix2->Location = System::Drawing::Point(114, 208);
+			this->comboBox_choix2->Location = System::Drawing::Point(274, 197);
 			this->comboBox_choix2->Name = L"comboBox_choix2";
 			this->comboBox_choix2->Size = System::Drawing::Size(121, 24);
 			this->comboBox_choix2->TabIndex = 4;
@@ -516,7 +521,7 @@ namespace Wally01 {
 			// checkBox2
 			// 
 			this->checkBox2->AutoSize = true;
-			this->checkBox2->Location = System::Drawing::Point(448, 272);
+			this->checkBox2->Location = System::Drawing::Point(448, 339);
 			this->checkBox2->Name = L"checkBox2";
 			this->checkBox2->Size = System::Drawing::Size(18, 17);
 			this->checkBox2->TabIndex = 3;
@@ -525,7 +530,7 @@ namespace Wally01 {
 			// label13
 			// 
 			this->label13->AutoSize = true;
-			this->label13->Location = System::Drawing::Point(127, 276);
+			this->label13->Location = System::Drawing::Point(127, 338);
 			this->label13->Name = L"label13";
 			this->label13->Size = System::Drawing::Size(268, 17);
 			this->label13->TabIndex = 2;
@@ -552,7 +557,7 @@ namespace Wally01 {
 			// 
 			// button2
 			// 
-			this->button2->Location = System::Drawing::Point(321, 430);
+			this->button2->Location = System::Drawing::Point(331, 430);
 			this->button2->Margin = System::Windows::Forms::Padding(4);
 			this->button2->Name = L"button2";
 			this->button2->Size = System::Drawing::Size(245, 28);
@@ -664,6 +669,14 @@ private: System::Void button2_Click(System::Object^  sender, System::EventArgs^ 
 	contenudomaineUpDown5 = (int)domainUpDown3->SelectedItem;
 	
 
+	String^ fileName = "textfile.txt";
+
+	StreamWriter^ sw = gcnew StreamWriter(fileName);
+	sw->WriteLine(indicateurComboNombreGraphique);
+	
+
+	//sw->WriteLine(DateTime::Now);
+	sw->Close();
 
 	path = textBox1->Text;
 	
@@ -697,6 +710,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 	{
 	case 0:
 	{
+		indicateurComboNombreGraphique = 0;
 		comboBox_choix1->Enabled = true;
 		comboBox_choix2->Enabled = false;
 		comboBox_choix3->Enabled = false;
@@ -714,6 +728,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 	}
 	case 1:
 	{
+		indicateurComboNombreGraphique = 1;
 		comboBox_choix1->Enabled = true;
 		comboBox_choix2->Enabled = true;
 		comboBox_choix3->Enabled = false;
@@ -729,6 +744,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 	}
 	case 2:
 	{
+		indicateurComboNombreGraphique = 2;
 		comboBox_choix1->Enabled = true;
 		comboBox_choix2->Enabled = true;
 		comboBox_choix3->Enabled = true;
@@ -742,6 +758,7 @@ private: System::Void comboBox1_SelectedIndexChanged(System::Object^  sender, Sy
 	}
 	case 3:
 	{
+		indicateurComboNombreGraphique = 3;
 		comboBox_choix1->Enabled = true;
 		comboBox_choix2->Enabled = true;
 		comboBox_choix3->Enabled = true;
@@ -789,5 +806,75 @@ private: System::Void textBox2_TextChanged(System::Object^  sender, System::Even
 	
 	
 	
+private: System::Void domainUpDown1_SelectedItemChanged(System::Object^  sender, System::EventArgs^  e) {
+
+	if (System::Text::RegularExpressions::Regex::IsMatch(domainUpDown1->Text, "[ ^ 0-9]"))    //autoriser l'utilisateur a entré uniquement un chiffre entre 0 et 9
+	{
+
+	}
+	else
+	{
+		//si la textbox ne contient aucun caractère ne pas génerer le message d'erreur
+		if (domainUpDown1->Text == "")
+		{
+
+		}
+		else
+		{//sinon, si la textbox contient des caractères ou des lettres ==> erreur
+			MessageBox::Show("Veuillez entrer un nombre", "Erreur", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			domainUpDown1->Text = "";
+		}
+
+
+	}
+
+}
+private: System::Void domainUpDown2_SelectedItemChanged(System::Object^  sender, System::EventArgs^  e) {
+
+	if (System::Text::RegularExpressions::Regex::IsMatch(domainUpDown2->Text, "[ ^ 0-9]"))    //autoriser l'utilisateur a entré uniquement un chiffre entre 0 et 9
+	{
+
+	}
+	else
+	{
+		//si la textbox ne contient aucun caractère ne pas génerer le message d'erreur
+		if (domainUpDown2->Text == "")
+		{
+
+		}
+		else
+		{//sinon, si la textbox contient des caractères ou des lettres ==> erreur
+			MessageBox::Show("Veuillez entrer un nombre", "Erreur", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			domainUpDown2->Text = "";
+		}
+
+
+	}
+
+}
+private: System::Void domainUpDown3_SelectedItemChanged(System::Object^  sender, System::EventArgs^  e) {
+
+	if (System::Text::RegularExpressions::Regex::IsMatch(domainUpDown3->Text, "[ ^ 0-9]"))    //autoriser l'utilisateur a entré uniquement un chiffre entre 0 et 9
+	{
+
+	}
+	else
+	{
+		
+		//si la textbox ne contient aucun caractère ne pas génerer le message d'erreur
+		if (domainUpDown3->Text == "")
+		{
+
+		}
+		else
+		{//sinon, si la textbox contient des caractères ou des lettres ==> erreur
+			MessageBox::Show("Veuillez entrer un nombre", "Erreur", MessageBoxButtons::OK, MessageBoxIcon::Error);
+			domainUpDown3->Text = "";
+		}
+
+
+
+	}
+}
 };
 }

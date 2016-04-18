@@ -23,7 +23,7 @@ void loadData(vector <Point> &lpoints, string fileName)
 		string ligne;
 		string delimiter = ",";
 		cout << "file opened: " << fileName << endl;
-
+	
 		//zapper première ligne
 		getline(fichier, ligne);
 

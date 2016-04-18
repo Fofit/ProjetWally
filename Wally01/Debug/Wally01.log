@@ -1,12 +1,63 @@
 ﻿  main.cpp
-main.cpp(400): warning C4018: '<' : incompatibilité signed/unsigned
-main.cpp(569): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
-main.cpp(571): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
-main.cpp(572): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
-main.cpp(584): warning C4018: '>=' : incompatibilité signed/unsigned
-main.cpp(600): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
-main.cpp(602): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
-main.cpp(603): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(106): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(107): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(123): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(124): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(135): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(137): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(138): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(146): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(148): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(149): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(160): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(161): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(172): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(174): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(175): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(183): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(185): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(186): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(197): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(198): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(209): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(211): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(212): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(220): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(222): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(223): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(234): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(235): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(246): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(248): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(249): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(257): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(259): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(260): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(271): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(272): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(283): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(285): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(286): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(294): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(296): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(297): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(308): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(309): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(320): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(322): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(323): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(331): warning C4244: '=' : conversion de 'double' en 'float', perte possible de données
+main.cpp(333): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(334): warning C4305: 'argument' : troncation de 'double' à 'GLfloat'
+main.cpp(541): warning C4129: 'T' : caractère de séquence d'échappement non reconnu
+main.cpp(813): warning C4018: '<' : incompatibilité signed/unsigned
+main.cpp(983): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(985): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
+main.cpp(986): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(998): warning C4018: '>=' : incompatibilité signed/unsigned
+main.cpp(1014): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
+main.cpp(1016): warning C4244: 'argument' : conversion de 'double' en 'GLint', perte possible de données
+main.cpp(1017): warning C4244: 'argument' : conversion de 'double' en 'GLfloat', perte possible de données
   main.obj : /DEBUG:FASTLINK n'est pas pris en charge en présence de code managé ; redémarrage de l'édition des liens avec /DEBUG:FULL
   Wally01.vcxproj -> C:\Users\Fitani\ProjetWally\Debug\Wally01.exe
   Wally01.vcxproj -> C:\Users\Fitani\ProjetWally\Debug\Wally01.pdb (Partial PDB)
